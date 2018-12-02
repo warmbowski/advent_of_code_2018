@@ -2,9 +2,9 @@ import { input02 } from './02-input';
 
 const input = input02.split('\n');
 
+
 type GetMapOfString = (str: string, inc?: number, map?: Map<string, number>) => Map<string, number>;
 type GetChecksum = (ids: string[]) => number;
-
 
 const getMapOfString: GetMapOfString = (str) => {
   const chrMap = new Map<string, number>();
@@ -47,7 +47,10 @@ const getChecksum: GetChecksum = ids => {
 console.log(getChecksum(input));
 
 
-const getStringDiff = (strA: string, strB: string) => {
+type GetStringDiff = (strA: string, strB: string) => [number, string];
+type GetCorrectId = (ids: string[]) => string;
+
+const getStringDiff: GetStringDiff = (strA, strB) => {
   let diffCount = 0;
   let common = '';
 
@@ -61,7 +64,7 @@ const getStringDiff = (strA: string, strB: string) => {
   return [diffCount, common];
 };
 
-const checkForCorrectId = (ids: string[]) => {
+const getCorrectId = ids => {
   for (let i = 0; i < ids.length; i++) {
     for (let j = i + 1; j < ids.length; j++) {
       const [ diffCnt, common ] = getStringDiff(ids[i], ids[j]);
@@ -71,4 +74,4 @@ const checkForCorrectId = (ids: string[]) => {
   return '';
 }
 
-console.log(checkForCorrectId(input));
+console.log(getCorrectId(input));
