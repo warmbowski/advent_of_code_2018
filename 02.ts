@@ -1,12 +1,14 @@
 import { input02 } from './02-input';
-
 const input = input02.split('\n');
-
 
 type GetMapOfString = (str: string, inc?: number, map?: Map<string, number>) => Map<string, number>;
 type GetChecksum = (ids: string[]) => number;
+type GetStringDiff = (strA: string, strB: string) => [number, string];
+type GetCorrectId = (ids: string[]) => string;
 
-const getMapOfString: GetMapOfString = (str) => {
+
+/*****  part 1  *****/
+const getMapOfString: GetMapOfString = str => {
   const chrMap = new Map<string, number>();
   str.split('').forEach(chr => {
     if (!chrMap.has(chr)) chrMap.set(chr, 0);
@@ -28,7 +30,7 @@ const getChecksum: GetChecksum = ids => {
     let found2 = false;
     let found3 = false;
 
-    getMapOfString(id).forEach((val) => {
+    getMapOfString(id).forEach(val => {
       if (!found2 && val === 2) {
         found2 = true;
         counts.set(2, counts.get(2) + 1);
@@ -47,9 +49,7 @@ const getChecksum: GetChecksum = ids => {
 console.log(getChecksum(input));
 
 
-type GetStringDiff = (strA: string, strB: string) => [number, string];
-type GetCorrectId = (ids: string[]) => string;
-
+/*****  part 2  *****/
 const getStringDiff: GetStringDiff = (strA, strB) => {
   let diffCount = 0;
   let common = '';
@@ -64,7 +64,7 @@ const getStringDiff: GetStringDiff = (strA, strB) => {
   return [diffCount, common];
 };
 
-const getCorrectId = ids => {
+const getCorrectId: GetCorrectId = ids => {
   for (let i = 0; i < ids.length; i++) {
     for (let j = i + 1; j < ids.length; j++) {
       const [ diffCnt, common ] = getStringDiff(ids[i], ids[j]);

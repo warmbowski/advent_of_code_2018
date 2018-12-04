@@ -1,8 +1,12 @@
 import { input01 } from './01-input';
-
 const input = input01.split('\n').map(x => Number(x));
 
-const getFinalFrequency = (deltas: number[]):number => {
+type GetFinalFrequency = (deltas: number[]) => number;
+type GetRepeatedFrequency = (deltas: number[]) => number;
+
+
+/*****  part 1  *****/
+const getFinalFrequency: GetFinalFrequency = deltas => {
   return deltas.reduce((prv, cur) => {
     return prv + cur;
   });
@@ -11,7 +15,8 @@ const getFinalFrequency = (deltas: number[]):number => {
 console.log(getFinalFrequency(input));
 
 
-const getRepeatedFrequency = (deltas: number[]):number => {
+/*****  part 2  *****/
+const getRepeatedFrequency : GetRepeatedFrequency = deltas => {
   const freqMap = new Map<number, boolean>();
   let frequency = 0;
   let firstRepeat: number | null = null;
